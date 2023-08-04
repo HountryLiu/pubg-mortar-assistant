@@ -8,6 +8,6 @@ import (
 	"fyne.io/fyne/v2"
 )
 
-//go:embed fire.png
+//go:embed desktop_icon.png
 var embedDesktopIcon []byte
 var DesktopIcon = fyne.NewStaticResource("DesktopIcon", embedDesktopIcon)
