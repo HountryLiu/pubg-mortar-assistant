@@ -8,6 +8,7 @@ import (
 	"fyne.io/fyne/v2/dialog"
 	"github.com/golang/glog"
 	"github.com/kbinani/screenshot"
+	hook "github.com/robotn/gohook"
 )
 
 type pubg struct {
@@ -44,8 +45,10 @@ type pubg struct {
 	// 预览窗口
 	ViewPort *ViewPort
 
-	// 地图比例 1比多少米
-	GameMapRatio int
+	// 游戏地图一格 在当前显示器屏幕长度
+	GameMapCellLength float64
+	// 游戏地图一格 在游戏中的比例，1比多少米
+	GameMapCellRatio float64
 }
 
 var (
@@ -76,4 +79,34 @@ func (o *pubg) MakeScreenshot() error {
 	o.CropRect = o.Screenshot.Bounds()
 
 	return nil
+}
+
+func (o *pubg) HookKeyboard() {
+	var (
+		KeyOpen  uint16 // 对应键盘 "+"
+		KeyClose uint16 // 对应键盘 "-"
+	)
+
+	pubg := GetPubgInstance()
+
+	if pubg.OS == "windows" {
+		KeyOpen = 187
+		KeyClose = 189
+	} else {
+		// linux macos
+		KeyOpen = 24
+		KeyClose = 27
+	}
+	hooks := hook.Start()
+	defer hook.End()
+	for ev := range hooks {
+		//	监听键盘弹起
+		if ev.Kind == hook.KeyUp {
+			if ev.Rawcode == KeyOpen {
+				ScreenShot.Create()
+			} else if ev.Rawcode == KeyClose {
+				ScreenShot.Destroy()
+			}
+		}
+	}
 }

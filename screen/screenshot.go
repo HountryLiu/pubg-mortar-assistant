@@ -21,8 +21,6 @@ func (o *screenShot) Create() {
 
 	pubg.MakeScreenshot()
 	pubg.ViewPort = NewViewPort(pubg)
-	// TODO 用图像识别，直接获取右下角地图比例
-	pubg.GameMapRatio = 100
 
 	pubg.WinScreenShot.SetContent(pubg.ViewPort)
 	pubg.WinScreenShotStatus = true

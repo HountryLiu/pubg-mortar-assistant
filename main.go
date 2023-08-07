@@ -10,6 +10,7 @@ import (
 	"github.com/HountryLiu/pubg-mortar-assistant/screen"
 	"github.com/HountryLiu/pubg-mortar-assistant/theme"
 	"github.com/HountryLiu/pubg-mortar-assistant/util"
+	"github.com/kbinani/screenshot"
 )
 
 func init() {
@@ -24,16 +25,18 @@ func init() {
 	// 默认选择主屏幕
 	pubg.DisplayIndex = 0
 	// 设置当前屏幕分辨率
-	pubg.ScreenWidth, pubg.ScreenHeight = util.GetScreenSize()
+	pubg.ScreenWidth, pubg.ScreenHeight = util.GetScreenSize(screenshot.GetDisplayBounds(pubg.DisplayIndex))
 	// 设置当前操作系统
 	pubg.OS = runtime.GOOS
+	// 设置游戏地图比例
+	pubg.GameMapCellRatio = 1000
 }
 
 func main() {
-	// 全局监听键盘，快捷键截图
-	go util.HookKeyboard()
-
 	pubg := screen.GetPubgInstance()
+	// 全局监听键盘，快捷键截图
+	go pubg.HookKeyboard()
+
 	textLabel := widget.NewLabel("欢迎使用绝地求生迫击炮助手! '+'键开始测量，'-'键关闭测量")
 	pubg.Win.SetContent(textLabel)
 	pubg.Win.Resize(fyne.NewSize(150, 50))

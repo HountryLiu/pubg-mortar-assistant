@@ -1,12 +1,7 @@
 package util
 
-import (
-	"github.com/HountryLiu/pubg-mortar-assistant/screen"
-	"github.com/kbinani/screenshot"
-)
+import "image"
 
-func GetScreenSize() (int, int) {
-	pubg := screen.GetPubgInstance()
-	bounds := screenshot.GetDisplayBounds(pubg.DisplayIndex)
+func GetScreenSize(bounds image.Rectangle) (int, int) {
 	return bounds.Max.X - bounds.Min.X, bounds.Max.Y - bounds.Min.Y
 }

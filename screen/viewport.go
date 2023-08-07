@@ -3,12 +3,14 @@ package screen
 import (
 	"fmt"
 	"math"
+	"time"
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/canvas"
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/theme"
 	"fyne.io/fyne/v2/widget"
+	"github.com/HountryLiu/pubg-mortar-assistant/util"
 	"golang.org/x/image/colornames"
 )
 
@@ -47,6 +49,8 @@ func NewViewPort(pubg *pubg) (vp *ViewPort) {
 
 // DragEnd implements fyne.Draggable
 func (vp *ViewPort) DragEnd() {
+	// 防止拖动过快，多次点击，造成线条丢失
+	time.Sleep(time.Millisecond * 100)
 	vp.isDrag = false
 }
 
@@ -64,7 +68,7 @@ func (vp *ViewPort) Dragged(e *fyne.DragEvent) {
 	y2 := vp.DrawLine.Position2.Y
 	drawLineDistince := math.Sqrt(float64((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2)))
 
-	vp.MortarAttachDistanceView.Text = fmt.Sprintf(" %v 米", int(drawLineDistince*float64(vp.pubg.GameMapRatio)))
+	vp.MortarAttachDistanceView.Text = fmt.Sprintf(" %v 米", util.Round(drawLineDistince*vp.pubg.GameMapCellRatio))
 	vp.MortarAttachDistanceView.Move(e.Position)
 	vp.MortarAttachDistanceView.Refresh()
 	vp.DrawLine.Refresh()
