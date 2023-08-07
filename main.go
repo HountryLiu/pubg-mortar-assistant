@@ -10,7 +10,6 @@ import (
 	"github.com/HountryLiu/pubg-mortar-assistant/screen"
 	"github.com/HountryLiu/pubg-mortar-assistant/theme"
 	"github.com/HountryLiu/pubg-mortar-assistant/util"
-	"github.com/kbinani/screenshot"
 )
 
 func init() {
@@ -25,7 +24,7 @@ func init() {
 	// 默认选择主屏幕
 	pubg.DisplayIndex = 0
 	// 设置当前屏幕分辨率
-	pubg.ScreenWidth, pubg.ScreenHeight = util.GetScreenSize(screenshot.GetDisplayBounds(pubg.DisplayIndex))
+	pubg.ScreenWidth, pubg.ScreenHeight = util.GetScreenSize(pubg.DisplayIndex)
 	// 设置当前操作系统
 	pubg.OS = runtime.GOOS
 	// 设置游戏地图比例
