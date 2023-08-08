@@ -67,7 +67,7 @@ func (s *Index) CreateRenderer() fyne.WidgetRenderer {
 	pubg := GetPubgInstance()
 	s.L1 = contentFn(strconv.Itoa(util.Round(pubg.GameMapCellLength)) + " 像素")
 	s.L2 = contentFn(strconv.Itoa(pubg.GameMortarShootLength) + " 米")
-	ctn := container.NewVBox(
+	ctnTop := container.NewVBox(
 		mainFn("欢迎使用绝地求生迫击炮助手! "),
 		titleFn("全局快捷键："),
 		container.NewGridWithColumns(2,
@@ -81,6 +81,14 @@ func (s *Index) CreateRenderer() fyne.WidgetRenderer {
 			descFn("迫击炮的发射距离："), s.L2,
 		),
 	)
+	ctnBottom := container.NewCenter(
+		container.NewHBox(
+			widget.NewHyperlink("博客", util.ParseURL("https://kanhuang.wang/")),
+			widget.NewLabel("-"),
+			widget.NewHyperlink("Github", util.ParseURL("https://github.com/HountryLiu/pubg-mortar-assistant")),
+		),
+	)
+	ctn := container.NewBorder(ctnTop, ctnBottom, nil, nil)
 	return &indexRenderer{
 		WidgetRenderer: widget.NewSimpleRenderer(ctn),
 		bar:            bar,

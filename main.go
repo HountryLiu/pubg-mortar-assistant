@@ -34,7 +34,9 @@ func main() {
 	// 全局监听键盘，快捷键截图
 	go pubg.HookKeyboard()
 
-	pubg.Win.SetContent(screen.NewIndex())
+	index := screen.NewIndex()
+	pubg.Win.SetContent(index)
+	pubg.Win.Resize(index.MinSize())
 	pubg.Win.SetMaster()
 	pubg.Win.ShowAndRun()
 
