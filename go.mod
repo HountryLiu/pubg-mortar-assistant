@@ -4,7 +4,6 @@ go 1.20
 
 require (
 	fyne.io/fyne/v2 v2.3.5
-	github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b
 	github.com/kbinani/screenshot v0.0.0-20210720154843-7d3a670d8329
 	github.com/robotn/gohook v0.40.0
 	golang.org/x/image v0.3.0

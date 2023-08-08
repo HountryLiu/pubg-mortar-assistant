@@ -68,8 +68,19 @@ func (vp *ViewPort) Dragged(e *fyne.DragEvent) {
 	y2 := vp.DrawLine.Position2.Y
 	drawLineDistince := math.Sqrt(float64((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2)))
 
-	vp.MortarAttachDistanceView.Text = fmt.Sprintf(" %v 米", util.Round(drawLineDistince*vp.pubg.GameMapCellRatio))
+	if vp.pubg.GameScreenshotMode == MeasureLengthGameCellScreen {
+		vp.pubg.GameMapCellLength = drawLineDistince
+		vp.MortarAttachDistanceView.Text = fmt.Sprintf(" 游戏地图一格长度：%v 像素", util.Round(drawLineDistince))
+		vp.pubg.IndexPage.L1.Text = fmt.Sprintf("%v 像素", util.Round(drawLineDistince))
+	} else {
+		vp.pubg.GameMortarShootLength = util.Round(drawLineDistince / vp.pubg.GameMapCellLength * vp.pubg.GameMapCellRatio)
+		vp.MortarAttachDistanceView.Text = fmt.Sprintf(" 迫击炮的发射距离：%v 米", vp.pubg.GameMortarShootLength)
+		vp.pubg.IndexPage.L2.Text = fmt.Sprintf("%v 米", vp.pubg.GameMortarShootLength)
+	}
 	vp.MortarAttachDistanceView.Move(e.Position)
+
+	vp.pubg.IndexPage.L1.Refresh()
+	vp.pubg.IndexPage.L2.Refresh()
 	vp.MortarAttachDistanceView.Refresh()
 	vp.DrawLine.Refresh()
 }
@@ -80,8 +91,16 @@ func (vp *ViewPort) Dragged(e *fyne.DragEvent) {
 func (vp *ViewPort) CreateRenderer() fyne.WidgetRenderer {
 	vp.ExtendBaseWidget(vp)
 	bar := canvas.NewRectangle(theme.DisabledColor())
-
-	ctn := container.NewWithoutLayout(vp.Screenshot, vp.DrawLine, vp.MortarAttachDistanceView)
+	btnScreenShot := &widget.Button{
+		Text:       "关闭窗口",
+		Importance: widget.DangerImportance,
+		OnTapped: func() {
+			ScreenShot.Destroy()
+		},
+	}
+	btnScreenShot.Resize(fyne.NewSize(100, 50))
+	btnScreenShot.Move(fyne.NewPos(float32(vp.pubg.ScreenWidth)*0.85, float32(vp.pubg.ScreenHeight)*0.85))
+	ctn := container.NewWithoutLayout(vp.Screenshot, vp.DrawLine, vp.MortarAttachDistanceView, btnScreenShot)
 	return &ViewPortRenderer{
 		WidgetRenderer: widget.NewSimpleRenderer(ctn),
 		bar:            bar,

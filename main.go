@@ -3,9 +3,7 @@ package main
 import (
 	"runtime"
 
-	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
-	"fyne.io/fyne/v2/widget"
 	"github.com/HountryLiu/pubg-mortar-assistant/resource"
 	"github.com/HountryLiu/pubg-mortar-assistant/screen"
 	"github.com/HountryLiu/pubg-mortar-assistant/theme"
@@ -36,9 +34,8 @@ func main() {
 	// 全局监听键盘，快捷键截图
 	go pubg.HookKeyboard()
 
-	textLabel := widget.NewLabel("欢迎使用绝地求生迫击炮助手! '+'键开始测量，'-'键关闭测量")
-	pubg.Win.SetContent(textLabel)
-	pubg.Win.Resize(fyne.NewSize(150, 50))
+	pubg.Win.SetContent(screen.NewIndex())
+	pubg.Win.SetMaster()
 	pubg.Win.ShowAndRun()
 
 }
