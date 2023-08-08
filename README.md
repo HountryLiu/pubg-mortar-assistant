@@ -13,6 +13,14 @@
 - 在使用操作2之前，需要先执行操作1
 - 在缩放改变地图大小后，需要重新执行操作1，因为pubg里面一个格子代表1km，缩放之后地图就变化了
 
+## 截图
+
+<img src = "./images/win_index.png" style="max-width: 488px" />
+
+<img src = "./images/op1.png" />
+
+<img src = "./images/op2.png" />
+
 ## 运行
 
 只需使用go工具在您的系统上安装并运行即可。
@@ -33,11 +41,3 @@ $ fyne package -os darwin -icon resource/desktop_icon.png
 # windows打包
 $ fyne package -os windows -icon resource/desktop_icon.png
 ```
-
-## 截图
-
-<img src = "./images/win_index.png" style="max-width: 488px" />
-
-<img src = "./images/op1.png" />
-
-<img src = "./images/op2.png" />
