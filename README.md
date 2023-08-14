@@ -17,9 +17,9 @@
 
 <img src = "./images/win_index.png" style="max-width: 488px" />
 
-<img src = "./images/op1.png" />
+<img src = "./images/op1.jpg" />
 
-<img src = "./images/op2.png" />
+<img src = "./images/op2.jpg" />
 
 ## 运行
 
