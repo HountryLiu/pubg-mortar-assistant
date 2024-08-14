@@ -83,7 +83,7 @@ func (s *Index) CreateRenderer() fyne.WidgetRenderer {
 	)
 	ctnBottom := container.NewCenter(
 		container.NewHBox(
-			widget.NewHyperlink("博客", util.ParseURL("https://kanhuang.wang/")),
+			widget.NewHyperlink("博客", util.ParseURL("https://olo.ink/")),
 			widget.NewLabel("-"),
 			widget.NewHyperlink("Github", util.ParseURL("https://github.com/HountryLiu/pubg-mortar-assistant")),
 		),
